@@ -1,6 +1,3 @@
-#
-#
-
 import re
 
 ALPHANUMERIC_PATTERN = r'^[a-zA-Z_][a-zA-Z0-9_\$]*$'
@@ -45,8 +42,14 @@ class PatternValidator(object):
         return obj.validate(*args, **kwargs)
 
     @classmethod
-    def _ValidateDecorator(cls, *args, **kwargs):
-        raise NotImplemented()
+    def ValidateDecorator(cls, *args, **kwargs):
+        def wrap_func(func):
+            def wrap_args(*args, **kwargs):
+                obj = object.__new__(cls)
+                obj.__init__()
+                return obj.validate(*args, **kwargs)
+            return wrap_args
+        return wrap_func
 
 class NumericValidator(PatternValidator):
 
