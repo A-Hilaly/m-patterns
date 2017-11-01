@@ -77,7 +77,7 @@ class PatternValidator(object):
         )
 
     @classmethod
-    def Validate(cls, *args, pattern_regex=None, **kwargs):
+    def Validate(cls, *args, **kwargs):
         obj = object.__new__(cls)
         obj.__init__()
         return obj.validate(*args, **kwargs)
